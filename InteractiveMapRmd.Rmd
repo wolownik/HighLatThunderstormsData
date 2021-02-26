@@ -2,9 +2,7 @@
 title: "InteractiveMap"
 author: "DKepski"
 date: "26 02 2021"
-output:
-  html_document:
-    df_print: paged
+output: rmarkdown::github_document
 ---
 
 ```{r setup, include=FALSE}
