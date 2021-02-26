@@ -1,23 +1,27 @@
 ---
-title: "InteractiveMap"
+title: "Interactive HTML Map"
 author: "DKepski"
 date: "26 02 2021"
-output: rmarkdown::github_document
+output: 
+  html_document:
+    keep_md: true
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-## Interactive html map
+## 
 
-```{r Imap, echo=FALSE}
+```{r Imap, echo=FALSE, warning=FALSE, message=FALSE}
 # interactive map code 
 library(leaflet)
 library(htmltools)
 library(here)
+library(sf)
 # read pre-processed for map data
-read_rds(here("Data", "MapData.rds")) -> HTMLmapData #read data using here library and its "relative" path 
+readRDS(here("Data", "MapData.rds")) -> HTMLmapData #read data using here library and its "relative" path 
+st_read(here("Data", "amaplim_geo_nw.shp")) -> AMAPline #read shapefile (downloaded originally from: https://www.amap.no/work-area/document/868 )
 
 mapWorldLeaf <- leaflet() %>%
   # add ocean basemap
@@ -73,4 +77,3 @@ mapInteractive #
 
 # map takes into account all SYNOPs that passed verification process - including highly doubtful Antactica cases!
 ```
-
