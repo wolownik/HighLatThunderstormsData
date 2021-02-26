@@ -1,0 +1,78 @@
+---
+title: "InteractiveMap"
+author: "DKepski"
+date: "26 02 2021"
+output:
+  html_document:
+    df_print: paged
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Interactive html map
+
+```{r Imap, echo=FALSE}
+# interactive map code 
+library(leaflet)
+library(htmltools)
+library(here)
+# read pre-processed for map data
+read_rds(here("Data", "MapData.rds")) -> HTMLmapData #read data using here library and its "relative" path 
+
+mapWorldLeaf <- leaflet() %>%
+  # add ocean basemap
+  addProviderTiles(providers$Esri.WorldImagery) %>%
+  # focus map in a certain area / zoom level
+  setView(lng = 0, lat = 0, zoom = 0)
+
+library(leafpop)
+library(maptools)
+tag.map.title <- tags$style(HTML("
+  .leaflet-control.map-title { 
+    transform: translate(-50%,20%);
+    position: fixed !important;
+    left: 50%;
+    text-align: center;
+    padding-left: 10px; 
+    padding-right: 10px; 
+    background: rgba(255,255,255,0.75);
+    font-weight: bold;
+    color: yellow;
+    font-size: 14px;
+  }
+"))
+title <- tags$div(
+  tag.map.title, HTML("Number of thunderstorm days in years 2000-2019 from SYNOPs")
+)  
+ccman <- c("slategray1", "steelblue1", "yellow", "orange", "red", "purple")
+# colour table 
+factpal <- colorFactor(c("slategray1", "steelblue1", "yellow", "orange", "red", "purple"), HTMLmapData$ThunderstormFrequence)
+HTMLmapData$Lat <- round(HTMLmapData$Lat,2)
+HTMLmapData$Lon <- round(HTMLmapData$Lon,2)
+HTMLmapData$ThunderstormDaysInYear <- round(HTMLmapData$ThunderstormDaysInYear,2)
+
+# HTMLmapData$ThunderstormFrequence <- as.character(HTMLmapData$ThunderstormFrequence)
+mapInteractive <- mapWorldLeaf %>%
+  addPolygons(data = AMAPline, color = "red", group = 'AMAP_border') %>%
+  addCircleMarkers(data = HTMLmapData, ~Lon, ~Lat, 
+                   popup = popupTable(HTMLmapData[,c(1,2,4,5,6,7,8,9)]), #not working now - popup Table data 
+                   weight = 0.5,
+                   col = 'black',
+                   fillColor = ~factpal(HTMLmapData$ThunderstormFrequence),
+                   radius = log(HTMLmapData$RecordedThunderstormDays)+2.5, #+2.5 to avoid too small siz of points on map; log to avoid to too large points 
+                   fillOpacity = 0.9,
+                   stroke = T,
+                   label = ~paste0(HTMLmapData$station_names, "; ", HTMLmapData$ThunderstormDaysInYear),
+                   group = 'WMO_station') %>%
+  addLayersControl(overlayGroups = c("WMO_station", 'AMAP_border'),
+                   options = layersControlOptions(collapsed = FALSE),
+                   position = "bottomright") %>%
+  hideGroup("AMAP_border") %>%
+  addControl(title, position = "topleft", className="map-title") #print title at top 
+mapInteractive # 
+
+# map takes into account all SYNOPs that passed verification process - including highly doubtful Antactica cases!
+```
+
