@@ -1,7 +1,5 @@
 ---
 title: "Interactive HTML Map"
-author: "DKepski"
-date: "26 02 2021"
 output: 
   html_document:
     keep_md: true
@@ -15,13 +13,13 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ```{r Imap, echo=FALSE, warning=FALSE, message=FALSE}
 # interactive map code 
-library(leaflet)
+library(leaflet) #use install.packages first in case of missing packages 
 library(htmltools)
 library(here)
 library(sf)
 # read pre-processed for map data
 readRDS(here("Data", "MapData.rds")) -> HTMLmapData #read data using here library and its "relative" path 
-st_read(here("Data", "amaplim_geo_nw.shp")) -> AMAPline #read shapefile (downloaded originally from: https://www.amap.no/work-area/document/868 )
+st_read(here("Data", "amaplim_geo_nw.shp"), quiet = T) -> AMAPline #read shapefile (downloaded originally from: https://www.amap.no/work-area/document/868 )
 
 mapWorldLeaf <- leaflet() %>%
   # add ocean basemap
