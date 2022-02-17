@@ -12,3 +12,4 @@ Data folder contains:
 - DataCompletenessPreVerification.csv - data completeness of available WMO reports from high latitude stations
 - MapData.rds - RData file with SYNOP data processed in a way it can be easily presented on a map. Allow reproduction of thunderstorm map (script in Rmarkdown format: InteractiveMapRmd.Rmd) 
 - TableThunderstormDaysOnStation.csv - file with number of thunderstorm days on each station 
+- SelectedStations.csv - file containing number of thunderstorm days recorded in every year at selected high latitude WMO stations characterized by high data continuity (wide 'mts' format)
