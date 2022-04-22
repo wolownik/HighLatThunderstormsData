@@ -10,6 +10,6 @@ Dataset has been prepared based on SYNOP reports downloaded from Ogimet resource
 Data folder contains:
 - ThunderstormSYNOPsAfterVerification.csv - all SYNOP reports containing information about high latitude thunderstorms from 2000-2019 (which have passed the verification process)
 - DataCompletenessPreVerification.csv - data completeness of available WMO reports from high latitude stations
-- MapData.rds - RData file with SYNOP data processed in a way it can be easily presented on a map. Allow reproduction of thunderstorm map (script in Rmarkdown format: InteractiveMapRmd.Rmd) 
+- MapData.rds - RData file with SYNOP data processed in a way that it can be easily presented on a map. Allow for reproduction of thunderstorm map (script in Rmarkdown format: InteractiveMapRmd.Rmd) 
 - TableThunderstormDaysOnStation.csv - file with the number of thunderstorm days on each station 
 - SelectedStations.csv - file containing the number of thunderstorm days recorded every year at selected high latitude WMO stations characterized by high data continuity (wide 'mts' format)
