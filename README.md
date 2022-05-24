@@ -6,6 +6,7 @@ To see an interactive thunderstorm map (instead of raw html text file) use this 
 (Click on an individual WMO station on the map to see more details)
 
 Dataset has been prepared based on SYNOP reports downloaded from Ogimet resources (https://www.ogimet.com) and NOAA Integrated Surface Database at https://www.ncdc.noaa.gov/isd/data-access and has been used in the manuscript:
+
 Kępski, D., & Kubicki, M. (2022). Thunderstorm activity at high latitudes observed at manned WMO weather stations. International Journal of Climatology, doi: 10.1002/joc.7678
 
 Data folder contains:
